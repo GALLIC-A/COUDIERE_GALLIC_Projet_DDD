@@ -1,4 +1,5 @@
 from django.db import models
+from .managers import ProfessionManager
 
 class Lieu(models.Model):
     nom = models.CharField(max_length=255)
@@ -10,6 +11,9 @@ class Lieu(models.Model):
 
 class Profession(models.Model):
     nom_profession = models.CharField(max_length=255)
+
+    # Il faut lier la classe métier à son manager (= repository)
+    objects = ProfessionManager()
 
     def __str__(self):
         return self.nom_profession
