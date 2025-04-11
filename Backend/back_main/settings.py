@@ -31,6 +31,7 @@ DEBUG = True #os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = [] #os.getenv('ALLOWED_HOSTS').split(',')
 
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Application definition
 
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'rest_framework',
     'apps.users',
     'apps.api',
