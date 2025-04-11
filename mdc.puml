@@ -1,0 +1,41 @@
+@startuml 
+
+class Traffic {
+    +id : <<PK>> int not null
+    +date : datetime not null
+    +valeur_traffic : float not null
+    +lieu_id : <<FK>> int not null references(Lieu.id)
+}
+
+class Population {
+    +id : <<PK>> int not null
+    +date : datetime not null
+    +age_moyen : int not null
+    +profession_id : <<FK>> int not null references(Profession.id)
+    +lieu_id : <<FK>> int not null references(Lieu.id)
+}
+
+class Musique {
+    +id : <<PK>> int not null
+    +date : datetime not null
+    +genre : string
+    +lieu_id : <<FK>> int not null references (Lieu.id)
+}
+
+class Lieu {
+    +id : <<PK>> int not null
+    +nom : string not null
+    +lat : float not null
+    +lon : float not null
+}
+
+class Profession {
+    +id : <<PK>> int not null
+    +nom_profession : string not null
+}
+
+Traffic --> Lieu : lieu_id
+Population --> Lieu : lieu_id
+Population --> Profession : profession_id
+Musique --> Lieu : lieu_id
+@enduml
