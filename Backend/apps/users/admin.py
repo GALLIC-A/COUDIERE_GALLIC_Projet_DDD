@@ -6,7 +6,6 @@ from .models import CustomUser
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    # Tu peux customiser les champs visibles ici si besoin
     list_display = ['username', 'email', 'is_staff', 'is_active']
     search_fields = ['username', 'email']
     ordering = ['username']
