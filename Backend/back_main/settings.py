@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 
 
@@ -115,6 +116,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Gestion de la durée de vie des tokens (access et refresh)
+# D'après ce que j'ai pu voir la limite par défaut est 5 minutes
+SIMPLE_JWT={
+    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME':timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS':False,
+    'BLACKLIST_AFTER_ROTATION':False,
+}
+# ROTATE_REFRESH_TOKENS signifie que quand on va vouloir refresh un token,
+# on va générer ou non un nouveau token de refresh.
+# Si on met FALSE, le token de refresh reste le même tout le temps dans la limite de sa durée de vie
+# (ici définie à 1 jour).
+# Si on met True, on en aura un nouveau à chaque refresh.
+# BLACKLIST_AFTER_ROTATION permet d'exclure l'ancien refresh token
+# une fois qu'il a été utilisé. L'ancien token ne pourra ainsi plus être utilisé
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
