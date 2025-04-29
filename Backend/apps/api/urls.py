@@ -1,9 +1,14 @@
 from django.urls import path, include
-from .views import get_tests, search_profession, get_traffic, get_musique
+from .views import get_rapports,top_genres, recommander_trajet, post_trajet, put_trajet, get_trajet, get_trajets
 
 urlpatterns = [
-    path('tests/', get_tests, name='get_tests'),
-    path('profession/', search_profession, name='search_profession'),
-    path('traffic/', get_traffic, name='get_traffic'),
-    path('musique/', get_musique, name='get_musique'),
+    path('marketing/top-genres',top_genres, name='top-genres'),
+    path('marketing/rapports', get_rapports, name='rapports'),
+    path('recommandations/trajet/<int:trajetId>/', recommander_trajet, name='recommander-trajet'),
+    path('trajets/<int:trajetId>/', get_trajet, name='get-trajet'),
+    path('trajets/', get_trajets, name='get-trajets'),
+    path('trajets/', post_trajet, name='post-trajet'),
+    path('trajets/<int:trajetId>/', put_trajet, name='put-trajet'),
+    
+    
 ]

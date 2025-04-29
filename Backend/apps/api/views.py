@@ -4,27 +4,71 @@ from .models import Test, Profession, Traffic, Musique
 from .serializers import ProfessionSerializer, TrafficSerializer, MusiqueSerializer
 
 @api_view(['GET'])
-def get_tests(request):
-    tests = Test.objects.all()
-    # data = [t.texte for t in tests]
-    # return Response(data)
-    return Response({"tests": [test.texte for test in tests]})
+def get_rapports(request):
+    date_debut=request.GET.get('date-debut')
+    date_fin=request.GET.get('date-fin')
+
+    # Traitement
+    return Response({
+        "rapport":"rapportMarketing",
+        "dateDebut":date_debut,
+        "dateFin":date_fin
+    })
 
 @api_view(['GET'])
-def search_profession(request):
-    name = request.GET.get('name', '')
-    professions = Profession.objects.find_by_name(name)
-    serializer = ProfessionSerializer(professions, many=True)
-    return Response(serializer.data)
+def top_genres(request):
+    # stats=(
+    #     Ecoute.objects
+    #     .values('musique_genre')
+    #     .annotate(nombreEcoutes=Count('id'))
+    #     .order_by('(nombreEcoutes)')
+    # )
+    # resultts=[
+    #     {
+    #         'genre':item['musique_genre'],
+    #         'nombreEcoutes':item['nombreEcoutes']
+    #     }
+    #     for item in stats
+    # ]
+    # return Response(results,status=status.HTTP_200_OK)
+    return Response({
+        'genre':'LE GENRE',
+        'nombreEcoutes':138239878
+    })
 
 @api_view(['GET'])
-def get_traffic(request):
-    traffics = Traffic.objects.all()
-    serializer = TrafficSerializer(traffics, many=True)
-    return Response(serializer.data)
+def recommander_trajet(request, trajetId):
+    return Response({
+        'playlistId':2,
+        'musiques':[
+            {
+                'titre':'LE TITRE DE LA MUSIQUE',
+                'artiste':'LARTISTE',
+                'url':'https://'
+            }
+        ]
+    })
+
+@api_view(['POST'])
+def post_trajet(request):
+    return Response({
+        'trajetId':2,
+        'details':'POST TRAJET'
+    })
+
+@api_view(['PUT'])
+def put_trajet(request, trajetId):
+    return Response({
+        'trajetId':3,
+        'updatedDetails':'2025-04-23'
+    })
 
 @api_view(['GET'])
-def get_musique(request):
-    musiques = Musique.objects.all()
-    serializer = MusiqueSerializer(musiques, many=True)
-    return Response(serializer.data)
+def get_trajet(request, trajetId):
+    return Response({
+        'trajetDetails':'details du trajet'
+    })
+    
+@api_view(['GET'])
+def get_trajets(request):
+    return Response("liste des trajets mais je n'ai pas réussi à le faire")
