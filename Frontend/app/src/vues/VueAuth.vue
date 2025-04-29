@@ -56,16 +56,17 @@
       let role = user.role 
   
       switch (role) {
-        case "1":
+        case 1:
           router.push('/direction')
           break
-        case "2":
+        case 2:
           router.push('/marketing')
           break
-        case "3":
+        case 3:
           router.push('/edition')
           break
-        case "4":
+        case 4:
+        console.log("redirect")
           router.push('/client')
           break
         default:
