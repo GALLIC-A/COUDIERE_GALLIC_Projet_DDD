@@ -18,6 +18,7 @@ db.sqlite3
 *.pyo
 *.sqlite3
 *.env
+*.sql
 
 # Fichiers d'IDE
 .vscode/
