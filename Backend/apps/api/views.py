@@ -1,9 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Test, Profession, Traffic, Musique
+from .models import Test, Profession, Traffic, Musique, Lieu
 from .serializers import ProfessionSerializer, TrafficSerializer, MusiqueSerializer
 from django.db.models import Count
 from rest_framework.status import HTTP_200_OK
+from django.db import connection
 
 @api_view(['GET'])
 def get_rapports(request):
@@ -31,16 +32,41 @@ def top_genres(request):
 
 @api_view(['GET'])
 def recommander_trajet(request, trajetId):
-    return Response({
-        'playlistId':2,
-        'musiques':[
-            {
-                'titre':'LE TITRE DE LA MUSIQUE',
-                'artiste':'LARTISTE',
-                'url':'https://'
-            }
-        ]
-    })
+    date_debut=request.GET.get('date-debut')
+    date_fin=request.GET.get('date-fin')
+
+    with connection.cursor() as cursor:
+        query="""
+               SELECT api_musique.genre,api_lieu.nom,COUNT(api_musique.id) AS nombre
+               FROM api_musique
+               INNER JOIN api_lieu ON api_musique.lieu_id=api_lieu.id
+               WHERE api_lieu.id = %s
+        """
+        params=[trajetId]
+        if date_debut and date_fin:
+            query+=" AND api_musique.date BETWEEN %s AND %s"
+            params.extend([date_debut,date_fin])
+        query+="""
+            GROUP BY api_musique.genre,api_lieu.nom
+            ORDER BY nombre DESC
+        """
+        cursor.execute(query,params)
+        rows=cursor.fetchall()
+    results=[
+        {
+            'genre':genre,
+            'lieu':nom_lieu,
+            'nombre':nombre
+        }
+        for (genre,nom_lieu,nombre) in rows
+    ]
+    if not results:
+        results=[{
+            'titre':'tout',
+            'lieu':'Inconnu',
+            'nombre':0
+        }]
+    return Response(results)        
 
 @api_view(['POST'])
 def post_trajet(request):
