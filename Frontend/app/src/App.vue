@@ -23,5 +23,8 @@ body{
   margin-top: 60px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
 }
 </style>

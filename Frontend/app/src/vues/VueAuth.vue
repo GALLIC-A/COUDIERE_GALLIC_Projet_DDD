@@ -8,18 +8,38 @@
       </form>
       <p v-if="error" class="error">{{ error }}</p>
     </div>
+  
+    <div class="login-form">
+      <h2>S'inscrire</h2>
+      <form @submit.prevent="register">
+        <input type="text" v-model="newUsername" placeholder="Nom d'utilisateur" required />
+        <input type="email" v-model="email" placeholder="Email" required />
+        <input type="password" v-model="newPassword" placeholder="Mot de passe" required />
+        <button type="submit">S'inscrire</button>
+      </form>
+      <p v-if="registerError" class="error">{{ registerError }}</p>
+      <p v-if="registerSuccess" class="success">{{ registerSuccess }}</p>
+    </div>
   </template>
   
   <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import axios from 'axios'
-
+  
   const router = useRouter()
   
+  // Connexion
   const username = ref('')
   const password = ref('')
   const error = ref(null)
+  
+  // Inscription
+  const newUsername = ref('')
+  const email = ref('')
+  const newPassword = ref('')
+  const registerError = ref(null)
+  const registerSuccess = ref(null)
   
   const login = async () => {
     error.value = null
@@ -28,39 +48,51 @@
         username: username.value,
         password: password.value,
       })
-      const { access_token, refresh_token, role } = response.data
-      // Stocke les tokens (attention à la sécurité selon contexte)
+      const { access_token, refresh_token, user } = response.data
+  
       localStorage.setItem('access_token', access_token)
       localStorage.setItem('refresh_token', refresh_token)
 
-      // Redirection ou autres actions
-      console.log(role)
-
+      let role = user.role 
+  
       switch (role) {
-  case "1":
-    router.push('/direction')
-    break
-  case "2":
-    router.push('/marketing')
-    break
-  case "3":
-    router.push('/edition')
-    break
-  case "4":
-    router.push('/client')
-    break
-  default:
-    // Optionnel : rediriger ou gérer un cas inattendu
-    router.push('/login')
-    break
-}
-
-
+        case "1":
+          router.push('/direction')
+          break
+        case "2":
+          router.push('/marketing')
+          break
+        case "3":
+          router.push('/edition')
+          break
+        case "4":
+          router.push('/client')
+          break
+        default:
+          router.push('/login')
+          break
+      }
     } catch (err) {
       error.value = 'Erreur de connexion : ' + (err.response?.data?.message || err.message)
     }
   }
-  </script>
+  
+  const register = async () => {
+    registerError.value = null
+    registerSuccess.value = null
+    try {
+      await axios.post('http://localhost:8000/api/users/register/', {
+        username: newUsername.value,
+        email: email.value,
+        password: newPassword.value,
+      })
+      registerSuccess.value = "Inscription réussie ! Vous pouvez maintenant vous connecter."
+    } catch (err) {
+        alert('Erreur d\'inscription :')
+      registerError.value = 'Erreur d\'inscription : ' + (err.response?.data?.message || err.message)
+    }
+  }
+  </script>  
   
   <style scoped>
   .login-form {
@@ -70,9 +102,7 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
     background-color: white;
-
     width: 250px;
-    margin: auto;
   }
   form{
     display: flex;
