@@ -2,6 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Test, Profession, Traffic, Musique
 from .serializers import ProfessionSerializer, TrafficSerializer, MusiqueSerializer
+from django.db.models import Count
+from rest_framework.status import HTTP_200_OK
 
 @api_view(['GET'])
 def get_rapports(request):
@@ -17,24 +19,15 @@ def get_rapports(request):
 
 @api_view(['GET'])
 def top_genres(request):
-    # stats=(
-    #     Ecoute.objects
-    #     .values('musique_genre')
-    #     .annotate(nombreEcoutes=Count('id'))
-    #     .order_by('(nombreEcoutes)')
-    # )
-    # resultts=[
-    #     {
-    #         'genre':item['musique_genre'],
-    #         'nombreEcoutes':item['nombreEcoutes']
-    #     }
-    #     for item in stats
-    # ]
-    # return Response(results,status=status.HTTP_200_OK)
-    return Response({
-        'genre':'LE GENRE',
-        'nombreEcoutes':138239878
-    })
+    stats=Musique.objects.values('genre').annotate(nombreEcoutes=Count('id')).order_by('-nombreEcoutes')
+    results=[
+        {
+            'genre':item['genre'],
+            'nombreEcoutes':item['nombreEcoutes']
+        }
+        for item in stats
+    ]
+    return Response(results,status=HTTP_200_OK)
 
 @api_view(['GET'])
 def recommander_trajet(request, trajetId):
