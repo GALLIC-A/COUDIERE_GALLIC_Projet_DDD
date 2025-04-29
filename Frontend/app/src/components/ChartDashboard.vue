@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <Doughnut :data="chartData" :options="chartOptions" />
-    <span>25</span>
-  </div>
-  <div>
-    <Doughnut :data="chartData" :options="chartOptions" />
-    <span>25</span>
+
+    <div id="main_frame_chart">
+      <h1>Récap</h1>
+      <div class="frame_charts">
+        <div class="frame_chart">
+      <Doughnut :data="chartData" :options="chartOptions" />
+      <span>25</span>
+    </div>
+    <div class="frame_chart">
+      <Doughnut :data="chartData" :options="chartOptions" />
+      <span>25</span>
+    </div>
+    </div>  
   </div>
 </template>
 
@@ -62,7 +68,21 @@ export default {
 </script>
 
 <style scoped>
-div {
+
+#main_frame_chart{
+  width: 800px;
+  padding: 50px;
+  background-color: white;
+  border-radius: 12px;
+}
+
+.frame_charts{
+  display: flex;
+  justify-content: center;
+}
+
+.frame_chart {
+ width: 300px;
   height: 200px; /* Taille du graphique */
 }
 </style>

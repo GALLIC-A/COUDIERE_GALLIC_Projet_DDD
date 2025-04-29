@@ -1,5 +1,7 @@
 <template>
 
+    Edition
+
 </template>
 
 <script>
