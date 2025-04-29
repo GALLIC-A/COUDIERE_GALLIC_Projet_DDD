@@ -1,58 +1,68 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <Doughnut :data="chartData" :options="chartOptions" />
+    <span>25</span>
+  </div>
+  <div>
+    <Doughnut :data="chartData" :options="chartOptions" />
+    <span>25</span>
   </div>
 </template>
 
 <script>
+import { Doughnut } from 'vue-chartjs'
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js'
+
+// Enregistrer les composants Chart.js nécessaires
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale)
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  components: {
+    Doughnut
+  },
+  data() {
+    return {
+      chartData: {
+        labels: ['Progression', 'Restant'],
+        datasets: [
+          {
+            label: 'Jauge',
+            backgroundColor: ['#42A5F5', '#E0E0E0'], // Couleur de la jauge et de l'arrière-plan
+            data: [25, 75], // Progrès (70%) et Restant (30%)
+            borderWidth: 0 // Supprimer la bordure
+          }
+        ]
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '80%', // Découper l'intérieur du cercle pour obtenir une forme de jauge
+        rotation: 220, // Commencer la jauge à 12 heures (rotation)
+        circumference: 280, // La jauge ne s'étend que sur la moitié du cercle (180 degrés)
+        plugins: {
+          tooltip: {
+            enabled: false // Désactiver l'affichage des tooltips (lorsqu'on survole la jauge)
+          },
+          legend: {
+            display: false // Désactiver la légende
+          }
+        }
+      }
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+div {
+  height: 200px; /* Taille du graphique */
 }
 </style>
