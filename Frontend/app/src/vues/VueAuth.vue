@@ -86,6 +86,8 @@
         username: newUsername.value,
         email: email.value,
         password: newPassword.value,
+        role: 1 // Normalement par défaut l'utilisateur devrait être client, mais nous n'avons pas eu le temps ni les compétences pour 
+        // implémenter un mécanisme permettant à un administrateur de gérer les rôles des utilisateurs...
       })
       registerSuccess.value = "Inscription réussie ! Vous pouvez maintenant vous connecter."
     } catch (err) {
