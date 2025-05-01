@@ -1,10 +1,11 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Test, Profession, Traffic, Musique, Lieu
-from .serializers import ProfessionSerializer, TrafficSerializer, MusiqueSerializer
+from .serializers import ProfessionSerializer, TrafficSerializer, MusiqueSerializer, LieuSerializer
 from django.db.models import Count
 from rest_framework.status import HTTP_200_OK
 from django.db import connection
+from django.shortcuts import get_object_or_404
 
 @api_view(['GET'])
 def get_rapports(request):
@@ -84,10 +85,12 @@ def put_trajet(request, trajetId):
 
 @api_view(['GET'])
 def get_trajet(request, trajetId):
-    return Response({
-        'trajetDetails':'details du trajet'
-    })
+    lieu = get_object_or_404(Lieu, id=trajetId)
+    serializer = LieuSerializer(lieu)
+    return Response(serializer.data)
     
 @api_view(['GET'])
 def get_trajets(request):
-    return Response("liste des trajets mais je n'ai pas réussi à le faire")
+    lieux = Lieu.objects.all()
+    serializer = LieuSerializer(lieux, many=True)
+    return Response(serializer.data)
