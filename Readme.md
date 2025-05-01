@@ -12,6 +12,8 @@ Ce script permet d'alimenter la base de données SQLite (db.sqlite3) avec les do
 ## Front-end :
 - Avoir NodeJS installé sur sa machine
 - Avoir installé les dépendances 
+- Pour lancer le serveur dev, il faut se placer dans Front/app
+- Exécuter la commande `npm run serve`
 
 # Application DDD
 
