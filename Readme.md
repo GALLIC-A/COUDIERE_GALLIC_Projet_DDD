@@ -2,12 +2,17 @@
 ## Back-end :
 - Avoir Python 3 installé sur sa machine
 - Avoir installé les dépendances de requirements.txt
+### Pour les données, deux solutions : 
+1 - Créer la base de données soi-même. Pour cela, il faut :
+- Supprimer le fichier `db.sqlite3` existant
 - Avoir effectué les migrations `migrate` dans l'ordre suivant :
   1. `users`
   2. `api`
   3. Puis la migration par défaut de Django (`python manage.py migrate`)
 - Avoir exécuté le script Python `alimenter_la_base_de_donnees.py`,.
 Ce script permet d'alimenter la base de données SQLite (db.sqlite3) avec les données nécessaires ainsi que les rôles par défaut que peuvent avoir les utilisateurs.
+
+2 - Utiliser la base SQLite déjà présente. Dans ce cas, il n'y a pas grand chose à faire ! Un utilisateur dont le nom est `axel` et dont le mot de passe est `bonjour` existe déjà.
 
 ## Front-end :
 - Avoir NodeJS installé sur sa machine
