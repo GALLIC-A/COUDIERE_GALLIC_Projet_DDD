@@ -12,12 +12,10 @@ env.bak/
 env_axel/
 
 # Fichiers Django
-db.sqlite3
 *.log
 *.pot
 *.pyc
 *.pyo
-*.sqlite3
 *.env
 
 # Fichiers d'IDE
