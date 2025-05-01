@@ -15,6 +15,8 @@ Ce script permet d'alimenter la base de données SQLite (db.sqlite3) avec les do
 - Pour lancer le serveur dev, il faut se placer dans Front/app
 - Exécuter la commande `npm run serve`
 
+# ATTENTION : La suite de ce README n'a pas été mise à jour. Toute la partie Dossier sera plus à jour dans le document PDF que nous avons envoyé par mail avec le lien vers ce projet.
+
 # Application DDD
 
 ## Phase 1 : Étude
