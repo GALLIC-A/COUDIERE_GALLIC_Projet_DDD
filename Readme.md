@@ -22,7 +22,19 @@ Ce script permet d'alimenter la base de données SQLite (db.sqlite3) avec les do
 
 ## Pour avoir des données...
 
-il vaut mieux faire sa recherche sur des villes dont les premières lettres se trouvent au début de l'alphabet, autrement on n'a pas de données à afficher...
+En raison de la mauvaise qualité de notre dataset, toutes les villes ne donnent pas forcément de résultat...
+Voici les villes pour lesquelles on trouve des résultats : 
+- L'Abergement-de-Varey
+- L'Abergement-Clémenciat
+- Arandas
+- Apremont (le 1er sur les 2 qui sortent)
+- Anglefort
+- Andert-et-Condon
+- Ambérieux-en-Dombes
+- Ambérieu-en-Bugey
+- Ambutrix
+- Ambronay
+- Ambléon
 
 ![Capture d'écran de démo](https://github.com/GALLIC-A/COUDIERE_GALLIC_Projet_DDD/blob/front_AjoutFormulaireSelectionRecherche_20250502_0014/demo.jpg)
 
