@@ -36,7 +36,7 @@ Voici les villes pour lesquelles on trouve des résultats :
 - Ambronay
 - Ambléon
 
-![Capture d'écran de démo](https://github.com/GALLIC-A/COUDIERE_GALLIC_Projet_DDD/blob/front_AjoutFormulaireSelectionRecherche_20250502_0014/demo.jpg)
+![Capture d'écran de démo](https://github.com/GALLIC-A/COUDIERE_GALLIC_Projet_DDD/blob/main/demo.jpg)
 
 # ATTENTION : La suite de ce README n'a pas été mise à jour. Toute la partie Dossier sera plus à jour dans le document PDF que nous avons envoyé par mail avec le lien vers ce projet.
 
